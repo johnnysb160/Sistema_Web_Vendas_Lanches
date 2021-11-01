@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Compras.Models;
+using Compras.Repositories.Interfaces;
+using Compras.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,21 +13,21 @@ namespace Compras.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILancheRepository _lancheRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILancheRepository lancheRepository)
         {
-            _logger = logger;
+            _lancheRepository = lancheRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            var homeViewViewModel = new HomeViewModel
+            {
+                LancheDestaque = _lancheRepository.LancheDestaque
+            };
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(homeViewViewModel);
         }
     }
 }

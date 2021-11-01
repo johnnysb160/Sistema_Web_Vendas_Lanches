@@ -1,0 +1,18 @@
+﻿@model Lanche
+
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <img src="@Model.ImagemUrl" class="card-img-top imageResponsive" alt="@Model.Nome" />
+    <div class="figure-caption">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4 class="formPullRightButton">@Model.Preco.ToString("c")</h4>
+                </div>
+                <div class="col-md-auto">
+                    <h4>@Model.Nome</h4>
+                </div>
+            </div>
+        </div>
+        <h6>@Model.DescricaoCurta</h6>
+    </div>
+</div>

@@ -5,22 +5,6 @@
 <div class="row">
     @foreach (var lanche in Model.Lanche)
     {
-
-        <div class="col-sm-4 col-lg-4 col-md-4">
-            <img src="@lanche.ImagemUrl" class="card-img-top imageResponsive" alt="@lanche.Nome" />
-            <div class="figure-caption">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <h4 class="formPullRightButton">@lanche.Preco.ToString("c")</h4>
-                        </div>
-                        <div class="col-md-auto">
-                            <h4>@lanche.Nome</h4>
-                        </div>
-                    </div>
-                </div>
-                <h6>@lanche.DescricaoCurta</h6>
-            </div>
-        </div>
+        <partial name="_LancheResumoPartial" for="@lanche" />
     }
 </div>
