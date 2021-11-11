@@ -1,0 +1,20 @@
+﻿@model CarrinhoCompraViewModel
+
+@if (Model.CarrinhoCompra.CarrinhoCompraItem.Count > 0)
+{
+    <li>
+        <a id="carrinho" asp-controller="CarrinhoCompra">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-status">
+                @Model.CarrinhoCompra.CarrinhoCompraItem.Count
+            </span>
+        </a>
+    </li>
+
+    <style>
+        #carrinho {
+            vertical-align: -webkit-baseline-middle;
+        }
+    </style>
+}
