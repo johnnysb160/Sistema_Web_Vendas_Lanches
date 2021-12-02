@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Compras.Models;
 using Compras.Repositories.Interfaces;
 using Compras.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +20,39 @@ namespace Compras.Controllers
         }
 
 
-        public IActionResult List()
+        public IActionResult List(string categoria)
         {
-            ViewBag.Lanche = "Lanche";
-            ViewData["Categoria"] = "Categoria";
+            string _categoria = categoria;
+            IEnumerable<Lanche> lanches;
+            string categoriaAtual = string.Empty;
 
-            var lancheListViewModel = new LancheListViewModel();
-            lancheListViewModel.Lanche = _lancheRepository.Lanche;
-            lancheListViewModel.CategoriaAtual = "Categoria Atual";
+            if (string.IsNullOrEmpty(categoria))
+            {
+                lanches = _lancheRepository.Lanche.OrderBy(l => l.LancheId);
+                categoria = "Todos os Lanches";
+            }
+            else
+            {
+                if(string.Equals("Normal", _categoria, StringComparison.OrdinalIgnoreCase))
+                {
+                    lanches = _lancheRepository.Lanche.Where(l =>
+                    l.Categoria.CategoriaNome.Equals("Normal")).OrderBy(l => l.Nome);
+                }
+                else
+                {
+                    lanches = _lancheRepository.Lanche.Where(l =>
+                    l.Categoria.CategoriaNome.Equals("Natural")).OrderBy(l => l.Nome);
+                }
+
+                categoriaAtual = _categoria;
+            }
+
+            var lancheListViewModel = new LancheListViewModel
+            {
+                Lanche = lanches,
+                CategoriaAtual = categoriaAtual
+            };
+
             return View(lancheListViewModel);
         }
     }

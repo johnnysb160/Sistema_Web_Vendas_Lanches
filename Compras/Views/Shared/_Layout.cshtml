@@ -24,7 +24,7 @@
                 <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Lanche" asp-action="List">Lanches</a></li>
+                        @await Component.InvokeAsync("CategoriaMenu");
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a></li>
                         @await Component.InvokeAsync("CarrinhoCompraResumo")
                     </ul>
