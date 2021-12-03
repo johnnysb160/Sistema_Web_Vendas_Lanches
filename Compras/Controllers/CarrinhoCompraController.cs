@@ -19,7 +19,9 @@ namespace Compras.Controllers
 
         public IActionResult Index()
         {
-            _carrinhoCompra.CarrinhoCompraItem = _carrinhoCompra.GetCarrinhoItem();
+
+            var itens = _carrinhoCompra.GetCarrinhoItem();
+            _carrinhoCompra.CarrinhoCompraItem = itens;
 
             var carrinhocompraViewModel = new CarrinhoCompraViewModel
             {

@@ -55,5 +55,19 @@ namespace Compras.Controllers
 
             return View(lancheListViewModel);
         }
+
+        public IActionResult Details(int lancheId)
+        {
+            var lanche = _lancheRepository.Lanche.FirstOrDefault(x => x.LancheId == lancheId);
+
+            if (lanche == null)
+            {
+                return View("~/Views/Error/Error.cshtml");
+            }
+            else
+            {
+                return View(lanche);
+            }
+        }
     }
 }

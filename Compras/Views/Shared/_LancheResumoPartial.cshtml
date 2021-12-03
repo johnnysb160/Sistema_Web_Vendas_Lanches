@@ -9,10 +9,19 @@
                     <h4 class="formPullRightButton">@Model.Preco.ToString("c")</h4>
                 </div>
                 <div class="col-md-auto">
-                    <h4>@Model.Nome</h4>
+                    <h4>
+                        <a asp-controller="Lanche" asp-action="Details" asp-route-lancheId="@Model.LancheId">@Model.Nome</a>
+                    </h4>
                 </div>
             </div>
         </div>
         <h6>@Model.DescricaoCurta</h6>
+    </div>
+    <div class="addToCar text-right">
+        <p class="button">
+            <a class="btn btn-primary" id="carButton" asp-controller="CarrinhoCompra" asp-action="AdicionarItemCarrinho" asp-route-lancheId="@Model.LancheId">
+                Incluir no Carrinho
+            </a>
+        </p>
     </div>
 </div>

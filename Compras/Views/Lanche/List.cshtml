@@ -3,7 +3,7 @@
 <div><h2>@Model.CategoriaAtual</h2></div>
 
 <div class="row">
-    @foreach (var lanche in Model.Lanche)
+    @foreach (Lanche lanche in Model.Lanche)
     {
         <partial name="_LancheResumoPartial" for="@lanche" />
     }

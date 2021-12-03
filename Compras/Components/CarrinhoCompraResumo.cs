@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Compras.Models;
+﻿using Compras.Models;
 using Compras.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +15,7 @@ namespace Compras.Components
 
         public IViewComponentResult Invoke()
         {
-            var itens = new List<CarrinhoCompraItem>() { new CarrinhoCompraItem(), new CarrinhoCompraItem() };
+            var itens = _carrinhoCompra.GetCarrinhoItem();
 
             _carrinhoCompra.CarrinhoCompraItem = itens;
 

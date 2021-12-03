@@ -62,10 +62,9 @@ namespace Compras
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "Categorias",
+                    name: "categoriaFiltro",
                     pattern: "Lanche/{action}/{categoria?}",
-                    defaults : new { Controller = "Lanche", action = "List" }
-                    );
+                    defaults: new { Controller = "Lanche", action = "List" });
 
                 endpoints.MapControllerRoute(
                     name: "default",

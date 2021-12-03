@@ -1,19 +1,19 @@
 ﻿<li class="dropdown">
     <a asp-controller="Lanche" asp-action="List"
-       class="dropdown-toggle" data-toggle="dropdown">
+       class="nav-link text-dark dropdown-toggle" data-toggle="dropdown">
         Lanches<b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
         @foreach (var categoria in Model)
         {
             <li>
-                <a asp-controller="Lanche" asp-action="List"
+                <a class="nav-link text-dark" asp-controller="Lanche" asp-action="List"
                    asp-route-categoria="@categoria.CategoriaNome">@categoria.CategoriaNome</a>
             </li>
         }
         <li class="divider"></li>
         <li>
-            <a asp-controller="Lanche" asp-action="List" asp-route-categoria="">Todos os Lanches</a>
+            <a class="nav-link text-dark" asp-controller="Lanche" asp-action="List" asp-route-categoria="">Todos os Lanches</a>
         </li>
     </ul>
 </li>
