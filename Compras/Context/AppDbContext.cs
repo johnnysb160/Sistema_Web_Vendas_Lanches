@@ -12,5 +12,7 @@ namespace Compras.Context
         public DbSet<Lanche> Lanche { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<CarrinhoCompraItem> CarrinhoCompraItem { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
     }
 }
