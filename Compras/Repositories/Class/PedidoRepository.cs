@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Compras.Context;
 using Compras.Models;
 using Compras.Repositories.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Compras.Repositories.Class
 {
