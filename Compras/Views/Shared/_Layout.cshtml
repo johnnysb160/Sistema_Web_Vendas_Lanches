@@ -28,6 +28,12 @@
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a></li>
                         @await Component.InvokeAsync("CarrinhoCompraResumo")
                     </ul>
+                    <form class="navbar-form ml-auto" asp-controller="Lanche" asp-action="Search" method="get">
+                        <div class="form-group input-group">
+                            <input type="text" class="form-control" placeholder="Procurar Lanche" name="searchString" value="@ViewData["searchString"]">
+                            <input type="image" src="~/images/search.png" name="searchIcon" alt="Submit" width="40">
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>

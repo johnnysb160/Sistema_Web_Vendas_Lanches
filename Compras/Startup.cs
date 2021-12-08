@@ -2,6 +2,7 @@ using Compras.Context;
 using Compras.Models;
 using Compras.Repositories.Class;
 using Compras.Repositories.Interfaces;
+using Compras.Repositories.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,7 @@ namespace Compras
 
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
+            services.AddTransient<IPedidoRepository, PedidoRepository>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(cp => CarrinhoCompra.GetCarrinho(cp));

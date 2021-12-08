@@ -69,5 +69,28 @@ namespace Compras.Controllers
                 return View(lanche);
             }
         }
+
+        public IActionResult Search(string searchString)
+        {
+            IEnumerable<Lanche> lanche;
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                lanche = _lancheRepository.Lanche.OrderBy(x => x.LancheId);
+            }
+            else
+            {
+                lanche = _lancheRepository.Lanche.Where(x => x.Nome.ToLower().Contains(searchString.ToLower())).OrderBy(x => x.LancheId);
+            }
+
+            if (lanche.ToList().Count == 0)
+            {
+                return View("~/Views/Lanche/List.cshtml", new LancheListViewModel { Lanche = lanche, CategoriaAtual = $"Nenhum lanche encontrado com a palavra '{searchString}'"});
+            }
+            else
+            {
+                return View("~/Views/Lanche/List.cshtml", new LancheListViewModel { Lanche = lanche, CategoriaAtual = "Todos os Lanches" });
+            }
+        }
     }
 }
