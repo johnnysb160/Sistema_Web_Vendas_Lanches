@@ -1,4 +1,5 @@
-﻿using Compras.Models;
+﻿using System;
+using Compras.Models;
 using Compras.Repositories.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,17 +35,16 @@ namespace Compras.Controllers
             if (ModelState.IsValid)
             {
                 _pedidoRepository.CriarPedido(pedido);
+
+
+                ViewBag.CheckoutCompletoMensagem = "Obrigado e aproveite seu pedido!";
+                ViewBag.TotalPedido = _carrinhoCompra.GetCarrinhoCompraTotal().ToString("C2");
+
                 _carrinhoCompra.LimparCarrinho();
-                return RedirectToAction("CheckoutCompleto");
+                return View("~/Views/Pedido/CheckoutCompleto.cshtml", pedido);
             }
 
             return View(pedido);
-        }
-
-        public IActionResult CheckoutCompleto()
-        {
-            ViewBag.CheckoutCompletoMensagem = "Obrigado e aproveite seu pedido!";
-            return View();
         }
     }
 }
