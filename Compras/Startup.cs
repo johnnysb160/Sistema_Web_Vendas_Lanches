@@ -77,6 +77,10 @@ namespace Compras
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "AdminArea",
+                    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "categoriaFiltro",
                     pattern: "Lanche/{action}/{categoria?}",
                     defaults: new { Controller = "Lanche", action = "List" });

@@ -2,6 +2,7 @@
 using Compras.Models;
 using Compras.Repositories.Interfaces;
 using Compras.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Compras.Controllers

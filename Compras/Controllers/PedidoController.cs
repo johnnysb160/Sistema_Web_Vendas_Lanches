@@ -1,6 +1,7 @@
 ﻿using System;
 using Compras.Models;
 using Compras.Repositories.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Compras.Controllers
@@ -17,12 +18,14 @@ namespace Compras.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Checkout()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Checkout(Pedido pedido)
         {
             _carrinhoCompra.CarrinhoCompraItem = _carrinhoCompra.GetCarrinhoItem();
