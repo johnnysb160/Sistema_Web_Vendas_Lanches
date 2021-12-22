@@ -26,7 +26,10 @@
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         @await Component.InvokeAsync("CategoriaMenu")
                         <li><a class="nav-link text-dark" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a></li>
-                        @await Component.InvokeAsync("CarrinhoCompraResumo")
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @await Component.InvokeAsync("CarrinhoCompraResumo")
+                        }
                     </ul>
                 </div>
                 <div class="nav navbar-nav navbar-right" id="bs-example-navbar-collapse-1">
