@@ -22,29 +22,21 @@ namespace Compras.Controllers
 
         public IActionResult List(string categoria)
         {
-            string _categoria = categoria;
             IEnumerable<Lanche> lanches;
             string categoriaAtual = string.Empty;
 
-            if (string.IsNullOrEmpty(categoria))
+            if (string.IsNullOrEmpty(categoria) || _lancheRepository.Lanche.Where(l =>
+                                    l.Categoria.CategoriaNome.Equals(categoria)).Count() == 0)
             {
                 lanches = _lancheRepository.Lanche.OrderBy(l => l.LancheId);
                 categoria = "Todos os Lanches";
             }
             else
             {
-                if(string.Equals("Normal", _categoria, StringComparison.OrdinalIgnoreCase))
-                {
-                    lanches = _lancheRepository.Lanche.Where(l =>
-                    l.Categoria.CategoriaNome.Equals("Normal")).OrderBy(l => l.Nome);
-                }
-                else
-                {
-                    lanches = _lancheRepository.Lanche.Where(l =>
-                    l.Categoria.CategoriaNome.Equals("Natural")).OrderBy(l => l.Nome);
-                }
+                lanches = _lancheRepository.Lanche.Where(l =>
+                                    l.Categoria.CategoriaNome.Equals(categoria)).OrderBy(l => l.Nome);
 
-                categoriaAtual = _categoria;
+                categoriaAtual = categoria;
             }
 
             var lancheListViewModel = new LancheListViewModel

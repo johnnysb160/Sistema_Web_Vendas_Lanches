@@ -22,5 +22,10 @@ namespace Compras.Controllers
 
             return View(homeViewViewModel);
         }
+
+        public ViewResult AcessDenied()
+        {
+            return View();
+        }
     }
 }

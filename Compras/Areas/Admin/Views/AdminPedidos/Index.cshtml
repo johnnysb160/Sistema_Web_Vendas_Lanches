@@ -1,10 +1,23 @@
-﻿@model IEnumerable<Compras.Models.Pedido>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Compras.Models.Pedido>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Pèdidos</h1>
+<h1>Pedidos</h1>
+
+<form method="get" class="form-inline">
+    <input name="filter" class="form-control" placeholder="filtro"
+           value="@Model.RouteValue["Filter"]" />
+    <button type="submit" class="btn btn-info">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Procurar
+    </button>
+</form>
+
+Total de Pedidos: @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
 
 <p>
     <a asp-action="Create">Criar um novo Pedido</a>
@@ -13,7 +26,8 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.SortableHeaderFor(model => model.Nome)
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sobrenome)
@@ -93,3 +107,6 @@
 }
     </tbody>
 </table>
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>

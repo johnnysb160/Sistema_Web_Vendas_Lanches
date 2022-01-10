@@ -73,6 +73,9 @@ namespace Compras.Controllers
                 var password = await _userManager.CreateAsync(user, registroVM.Password);
                 if (password.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "Member");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
                     return RedirectToAction("LoggedIn", "Account");
                 }
 

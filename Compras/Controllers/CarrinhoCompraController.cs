@@ -54,7 +54,15 @@ namespace Compras.Controllers
                 _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
             }
 
-            return RedirectToAction("Index");
+            if (_carrinhoCompra.GetCarrinhoItem().Count > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CarrinhoVazio");
+            }
+
         }
     }
 }

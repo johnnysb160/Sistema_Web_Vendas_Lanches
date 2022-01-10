@@ -45,14 +45,8 @@
     <div class="dropdown ml-auto">
         <div class="form-group">
             <a class="btn btn-success" asp-controller="Pedido" asp-action="Checkout">Encerrar Pedido</a>
-            <a class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown">
-                Adicionar mais lanches<b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a class="nav-link text-dark" asp-controller="Lanche" asp-action="List" asp-route-categoria="Normal">Normal</a></li>
-                <li><a class="nav-link text-dark" asp-controller="Lanche" asp-action="List" asp-route-categoria="Natural">Natural</a></li>
-                <li><a class="nav-link text-dark" asp-controller="Lanche" asp-action="List">Todos os Lanches</a></li>
-            </ul>
+            &nbsp;&nbsp;&nbsp;
+            <a class="btn btn-outline-info" asp-controller="Home" asp-action="Index">Continuar Comprando</a>
         </div>
     </div>
 </div>
