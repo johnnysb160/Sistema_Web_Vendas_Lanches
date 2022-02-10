@@ -1,3 +1,4 @@
+using Compras.Areas.Admin.Servicos;
 using Compras.Context;
 using Compras.Models;
 using Compras.Repositories.Class;
@@ -35,6 +36,7 @@ namespace Compras
                 .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Home/AcessDenied");
+            services.Configure<ConfigurationImagens>(Configuration.GetSection("ConfigurationPastaImagens"));
 
             //fornece uma instancia de HttpContextAcessor
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -42,6 +44,8 @@ namespace Compras
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ILancheRepository, LancheRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
+
+            services.AddScoped<RelatorioVendasService>();
 
             //cria um objeto Scoped, ou seja um objeto que esta associado a requisição
             //isso significa que se duas pessoas solicitarem o objeto CarrinhoCompra ao  mesmo tempo

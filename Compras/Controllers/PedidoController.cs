@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Compras.Models;
 using Compras.Repositories.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +17,6 @@ namespace Compras.Controllers
             _carrinhoCompra = carrinhoCompra;
         }
 
-        [HttpGet]
         [Authorize]
         public IActionResult Checkout()
         {
@@ -28,17 +27,31 @@ namespace Compras.Controllers
         [Authorize]
         public IActionResult Checkout(Pedido pedido)
         {
-            _carrinhoCompra.CarrinhoCompraItem = _carrinhoCompra.GetCarrinhoItem();
+            decimal precoTotalPedido = 0.0m;
+            int totalItensPedido = 0;
+
+            List<CarrinhoCompraItem> items = _carrinhoCompra.GetCarrinhoItem();
+
+            _carrinhoCompra.CarrinhoCompraItem = items;
 
             if (_carrinhoCompra.CarrinhoCompraItem.Count == 0)
             {
                 ModelState.AddModelError("", "Seu carrinho está vazio...");
             }
 
+            // Calcula o total de pedidos.
+            foreach (var item in items)
+            {
+                totalItensPedido += item.Quantidade;
+                precoTotalPedido += (item.Lanche.Preco * item.Quantidade);
+            }
+
+            pedido.TotalItensPedido = totalItensPedido;
+            pedido.PedidoTotal = precoTotalPedido;
+
             if (ModelState.IsValid)
             {
                 _pedidoRepository.CriarPedido(pedido);
-
 
                 ViewBag.CheckoutCompletoMensagem = "Obrigado e aproveite seu pedido!";
                 ViewBag.TotalPedido = _carrinhoCompra.GetCarrinhoCompraTotal().ToString("C2");

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Compras.Models
 {
+    [Table("Pedidos")]
     public class Pedido
     {
         public int PedidoId { get; set; }
@@ -62,15 +63,21 @@ namespace Compras.Models
         [BindNever]
         [ScaffoldColumn(false)]
         [Column(TypeName = "decimal(18,2)")]
+        [Display(Name ="Total do Pedido")]
         public decimal PedidoTotal { get; set; }
 
-        [Display(Name = "Data/Hora do Recebimento do Pedido")]
-        [DataType(DataType.DateTime)]
+        [BindNever]
+        [ScaffoldColumn(false)]
+        [Display(Name = "Itens no Pedido")]
+        public int TotalItensPedido { get; set; }
+
+        [Display(Name = "Data do Pedido")]
+        [DataType(DataType.Text)]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime PedidoEnviado { get; set; }
 
-        [Display(Name = "Data/Hora da Entrega do Pedido")]
-        [DataType(DataType.DateTime)]
+        [Display(Name = "Data Envio do Pedido")]
+        [DataType(DataType.Text)]
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime? PedidoEntregue { get; set; }
     }

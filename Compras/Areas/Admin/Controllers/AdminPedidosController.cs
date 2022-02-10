@@ -1,12 +1,13 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Compras.Context;
+﻿using Compras.Context;
 using Compras.Models;
+using Compras.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Compras.Areas.Admin.Controllers
 {
@@ -22,7 +23,34 @@ namespace Compras.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminPedidos
-        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Pedidos.ToListAsync());
+        //}
+
+        public IActionResult PedidoLanches(int? id)
+        {
+            var pedido = _context.Pedidos
+                          .Include(pd => pd.PedidoItens)
+                          .ThenInclude(l => l.Lanche)
+                          .FirstOrDefault(p => p.PedidoId == id);
+
+            if (pedido == null)
+            {
+                Response.StatusCode = 404;
+                return View("PedidoNotFound", id.Value);
+            }
+
+            PedidoLancheViewModel pedidoLanches = new PedidoLancheViewModel()
+            {
+                Pedido = pedido,
+                PedidoDetalhes = pedido.PedidoItens
+            };
+            return View(pedidoLanches);
+        }
+
+
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "PedidoEnviado")
         {
             var resultado = _context.Pedidos.AsNoTracking()
                            .AsQueryable();
@@ -33,7 +61,7 @@ namespace Compras.Areas.Admin.Controllers
                 resultado = resultado.Where(p => p.Nome.Contains(filter));
             }
 
-            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "PedidoEnviado");
 
             model.RouteValue = new RouteValueDictionary { { "filter", filter } };
 
@@ -50,6 +78,7 @@ namespace Compras.Areas.Admin.Controllers
 
             var pedido = await _context.Pedidos
                 .FirstOrDefaultAsync(m => m.PedidoId == id);
+
             if (pedido == null)
             {
                 return NotFound();
@@ -65,11 +94,9 @@ namespace Compras.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminPedidos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PedidoId,Nome,Sobrenome,Endereco1,Endereco2,Cep,Estado,Cidade,Telefone,Email,PedidoEnviado,PedidoEntregue")] Pedido pedido)
+        public async Task<IActionResult> Create([Bind("PedidoId,Nome,Sobrenome,Endereco1,Endereco2,Cep,Estado,Cidade,Telefone,Email,PedidoEnviado,PedidoEntregueEm")] Pedido pedido)
         {
             if (ModelState.IsValid)
             {
@@ -97,11 +124,9 @@ namespace Compras.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminPedidos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PedidoId,Nome,Sobrenome,Endereco1,Endereco2,Cep,Estado,Cidade,Telefone,Email,PedidoEnviado,PedidoEntregue")] Pedido pedido)
+        public async Task<IActionResult> Edit(int id, [Bind("PedidoId,Nome,Sobrenome,Endereco1,Endereco2,Cep,Estado,Cidade,Telefone,Email,PedidoEnviado,PedidoEntregueEm")] Pedido pedido)
         {
             if (id != pedido.PedidoId)
             {
@@ -131,7 +156,7 @@ namespace Compras.Areas.Admin.Controllers
             return View(pedido);
         }
 
-        // GET: Admin/AdminPedidoss/Delete/5
+        // GET: Admin/AdminPedidos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
