@@ -18,7 +18,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Compras</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/lanche-logo.png" width="120"/>
+                        Compras
+                    </a>
                 </div>
 
                 <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
@@ -54,11 +57,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @*<footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - Compras - <a asp-area="" asp-controller="Lanche" asp-action="List">Lanches</a>
         </div>
-    </footer>
+    </footer>*@
+
+    <partial name="_Footer" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
